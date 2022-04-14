@@ -4,6 +4,8 @@ import {Container, Grid} from "@mui/material";
 import CatsCard from "./components/CatsCard";
 import {ICats} from "./types/types";
 import {convertCatsListData} from "./helpers/CatsHelpers";
+import AddCatModal from "./components/AddCatModal";
+
 const catsJson = require('./JSON/cats.json');
 
 const App = () => {
@@ -29,20 +31,22 @@ const App = () => {
         data: catsJson,
       }
 
-      const cats:ICats[] = convertCatsListData(response.data);
+      const cats: ICats[] = convertCatsListData(response.data);
       setCatsList(cats);
     } catch (e) {
       console.error(e)
     }
   }
-  console.log('test')
+
 
   return (
     <Container maxWidth="xl" component="main">
       <Grid container spacing={1}>
-          {catsList.map((cat: ICats) => {
-            return <CatsCard cat={cat} key={cat.id}/>
-          })}
+        <AddCatModal/>
+
+        {catsList.map((cat: ICats) => {
+          return <CatsCard cat={cat} key={cat.id}/>
+        })}
       </Grid>
     </Container>
   );

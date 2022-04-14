@@ -2,11 +2,11 @@ import React, {FC} from "react";
 import {Button, Card, CardActions, CardContent, CardMedia, Grid, Typography} from "@mui/material";
 import {ICats} from "../types/types";
 
-interface GameCardProps {
+interface CateCardProps {
   cat: ICats;
 }
 
-const CatsCard: FC<GameCardProps> = ({cat}: GameCardProps) => {
+const CatsCard: FC<CateCardProps> = ({cat}: CateCardProps) => {
   return (
     <Grid item md={3}>
       <Card>
