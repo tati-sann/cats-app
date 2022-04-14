@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-// import axios from "axios";
+import axios from "axios";
 import {Container, Grid} from "@mui/material";
 import CatsCard from "./components/CatsCard";
 import {ICats} from "./types/types";
@@ -17,19 +17,19 @@ const App = () => {
 
   const fetchCats = async () => {
     try {
-      // const response = await axios.get(`https://api.thecatapi.com/v1/breeds`, {
-      //   headers: {
-      //     'x-api-key': '195d9614-3d48-4836-a501-58b5331af7f2'
-      //   },
-      //   params: {
-      //     limit: 10,
-      //     page: 1,
-      //   }
-      // })
+      const response = await axios.get(`https://api.thecatapi.com/v1/breeds`, {
+        headers: {
+          'x-api-key': '195d9614-3d48-4836-a501-58b5331af7f2'
+        },
+        params: {
+          limit: 10,
+          page: 1,
+        }
+      })
 
-      const response = {
-        data: catsJson,
-      }
+      // const response = {
+      //   data: catsJson,
+      // }
 
       const cats: ICats[] = convertCatsListData(response.data);
       setCatsList(cats);
