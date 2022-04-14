@@ -1,25 +1,50 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useEffect, useState} from 'react';
+// import axios from "axios";
+import {Container, Grid} from "@mui/material";
+import CatsCard from "./components/CatsCard";
+import {ICats} from "./types/types";
+import {convertCatsListData} from "./helpers/CatsHelpers";
+const catsJson = require('./JSON/cats.json');
 
-function App() {
+const App = () => {
+  const [catsList, setCatsList] = useState<ICats[]>([]);
+
+  useEffect(() => {
+    fetchCats()
+  }, []);
+
+  const fetchCats = async () => {
+    try {
+      // const response = await axios.get(`https://api.thecatapi.com/v1/breeds`, {
+      //   headers: {
+      //     'x-api-key': '195d9614-3d48-4836-a501-58b5331af7f2'
+      //   },
+      //   params: {
+      //     limit: 10,
+      //     page: 1,
+      //   }
+      // })
+
+      const response = {
+        data: catsJson,
+      }
+
+      const cats:ICats[] = convertCatsListData(response.data);
+      setCatsList(cats);
+    } catch (e) {
+      console.error(e)
+    }
+  }
+  console.log('test')
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container maxWidth="xl" component="main">
+      <Grid container spacing={1}>
+          {catsList.map((cat: ICats) => {
+            return <CatsCard cat={cat} key={cat.id}/>
+          })}
+      </Grid>
+    </Container>
   );
 }
 
